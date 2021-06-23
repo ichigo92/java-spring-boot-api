@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine as build
+FROM openjdk:8-jre-alpine as build
 WORKDIR /workspace/app
 
 COPY mvnw .
@@ -9,7 +9,7 @@ COPY src src
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 VOLUME /tmp
